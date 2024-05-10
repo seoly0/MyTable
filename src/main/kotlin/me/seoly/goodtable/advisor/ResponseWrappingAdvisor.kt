@@ -1,4 +1,4 @@
-package me.seoly.goodtable.controller
+package me.seoly.goodtable.advisor
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import me.seoly.goodtable.payload.CommonPayload
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 
 
 @RestControllerAdvice(basePackages = ["me.seoly.goodtable.controller"])
-class Adviser(
+class ResponseWrappingAdvisor(
     val objectMapper: ObjectMapper
 ): ResponseBodyAdvice<Any> {
     override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>): Boolean {
