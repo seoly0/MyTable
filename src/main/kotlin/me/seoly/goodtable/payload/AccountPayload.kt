@@ -1,8 +1,5 @@
 package me.seoly.goodtable.payload
 
-import me.seoly.goodtable.core.model.type.AccountType
-import java.time.LocalDateTime
-
 class AccountPayload {
 
     class Request {

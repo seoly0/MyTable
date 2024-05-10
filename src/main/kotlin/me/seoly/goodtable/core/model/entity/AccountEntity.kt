@@ -2,7 +2,6 @@ package me.seoly.goodtable.core.model.entity
 
 import jakarta.persistence.*
 import me.seoly.goodtable.core.model.type.AccountStateType
-import me.seoly.goodtable.core.model.type.AccountType
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
