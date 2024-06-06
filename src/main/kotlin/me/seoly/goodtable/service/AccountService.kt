@@ -2,9 +2,12 @@ package me.seoly.goodtable.service
 
 import me.seoly.goodtable.core.model.entity.AccountEntity
 import me.seoly.goodtable.core.model.type.AccountStateType
+import me.seoly.goodtable.exception.EntityDuplicatedException
+import me.seoly.goodtable.exception.EntityNotExistException
 import me.seoly.goodtable.payload.AccountPayload
 import me.seoly.goodtable.repository.AccountRepository
 import me.seoly.utils.ModelMapper
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -16,6 +19,12 @@ class AccountService(
 ) {
 
     fun createAccount(create: AccountPayload.Request.Create): AccountPayload.Response.Default {
+
+        val exist = accountRepository.findByEmail(create.email)
+
+        if (exist != null) {
+            throw EntityDuplicatedException("이미 가입된 이메일입니다.")
+        }
 
         create.password = passwordEncoder.encode(create.password)
 
@@ -31,11 +40,14 @@ class AccountService(
 
         var entity: AccountEntity? = null
 
-        if (accountId != null) {
-            entity = accountRepository.getReferenceById(accountId)
-        }
-        else {
-            entity = accountRepository.getReferenceById(1)
+        entity = try {
+            if (accountId != null) {
+                accountRepository.getReferenceById(accountId)
+            } else {
+                accountRepository.getReferenceById(1)
+            }
+        } catch (exception: JpaObjectRetrievalFailureException) {
+            throw EntityNotExistException("존재하지 않는 계정입니다.")
         }
 
         return modelMapper.map(entity, AccountPayload.Response.Default::class.java)

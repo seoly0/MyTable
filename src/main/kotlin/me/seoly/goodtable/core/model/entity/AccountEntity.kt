@@ -24,10 +24,6 @@ data class AccountEntity(
     @Column(length = Const.PASSWORD_LENGTH)
     var password: String,
 
-//    @Column
-//    @Enumerated(EnumType.STRING)
-//    var type: AccountType,
-
     @Column(length = Const.TEL_LENGTH)
     var phone: String,
 ): BaseEntity() {
