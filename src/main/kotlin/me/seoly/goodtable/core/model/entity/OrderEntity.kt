@@ -5,6 +5,8 @@ import me.seoly.goodtable.core.model.type.OrderStateType
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
 
 @Entity
@@ -14,6 +16,8 @@ import java.time.LocalDateTime
 )
 @SQLDelete(sql = "UPDATE order SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
+@DynamicInsert
+@DynamicUpdate
 data class OrderEntity (
     @Column(name = "customer_id")
     var customerId: Long,

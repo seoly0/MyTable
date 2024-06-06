@@ -5,6 +5,8 @@ import me.seoly.goodtable.core.Const
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 
 @Entity
 @Table(
@@ -13,6 +15,8 @@ import me.seoly.spring.jpa.BaseEntity
 )
 @SQLDelete(sql = "UPDATE store SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
+@DynamicInsert
+@DynamicUpdate
 data class StoreEntity (
     @Column(length = Const.COMMON_NAME_LENGTH)
     var name: String,

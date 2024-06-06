@@ -6,6 +6,8 @@ import me.seoly.goodtable.core.model.type.MenuStateType
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 
 @Entity
 @Table(
@@ -14,6 +16,8 @@ import me.seoly.spring.jpa.BaseEntity
 )
 @SQLDelete(sql = "UPDATE option_item SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
+@DynamicInsert
+@DynamicUpdate
 data class OptionItemEntity (
     @Column(name = "option_id")
     var optionId: Long,

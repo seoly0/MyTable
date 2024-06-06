@@ -1,22 +1,24 @@
 package me.seoly.goodtable.core.model.entity
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import me.seoly.goodtable.core.Const
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
+import org.hibernate.annotations.ColumnDefault
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 
-
-//, me.seoly.goodtable.core.model.schema.Table
 
 @Entity
 @Table(
-    name = "table",
+    name = "store_table",
     indexes = []
 )
-@SQLDelete(sql = "UPDATE table SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE store_table SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
+@DynamicInsert
+@DynamicUpdate
 data class TableEntity (
     @Column(name = "store_id")
     var storeId: Long,
@@ -40,12 +42,13 @@ data class TableEntity (
     var positionY: Int = 0
 
     @Column
-    lateinit var description: String
+    @ColumnDefault("''")
+    var description: String = ""
 
     @Column
-    lateinit var memo: String
+    @ColumnDefault("''")
+    var memo: String = ""
 
-//    @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "store_id", nullable = false, insertable = false, updatable = false)
     lateinit var store: StoreEntity

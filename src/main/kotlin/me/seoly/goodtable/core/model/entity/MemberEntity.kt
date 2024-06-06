@@ -3,6 +3,8 @@ package me.seoly.goodtable.core.model.entity
 import jakarta.persistence.*
 import me.seoly.goodtable.core.model.type.MemberType
 import me.seoly.spring.jpa.BaseEntity
+import org.hibernate.annotations.DynamicInsert
+import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 
@@ -13,6 +15,8 @@ import org.hibernate.annotations.SQLRestriction
 )
 @SQLDelete(sql = "UPDATE member SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
+@DynamicInsert
+@DynamicUpdate
 class MemberEntity(
     @Column(name = "store_id")
     val storeId: Long,
