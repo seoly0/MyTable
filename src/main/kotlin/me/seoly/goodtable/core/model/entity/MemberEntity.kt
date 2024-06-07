@@ -10,10 +10,10 @@ import org.hibernate.annotations.SQLRestriction
 
 @Entity
 @Table(
-    name = "member",
+    name = "store_member",
     indexes = []
 )
-@SQLDelete(sql = "UPDATE member SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE store_member SET deleted = true WHERE id = ?")
 @SQLRestriction("deleted = false")
 @DynamicInsert
 @DynamicUpdate

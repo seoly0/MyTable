@@ -19,7 +19,7 @@ import org.hibernate.annotations.DynamicUpdate
 @SQLRestriction("deleted = false")
 @DynamicInsert
 @DynamicUpdate
-data class TableEntity (
+data class StoreTableEntity (
     @Column(name = "store_id")
     var storeId: Long,
 

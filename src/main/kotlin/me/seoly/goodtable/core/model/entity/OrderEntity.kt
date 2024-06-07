@@ -54,5 +54,5 @@ data class OrderEntity (
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "table_id", nullable = false, insertable = false, updatable = false)
-    lateinit var table: TableEntity
+    lateinit var table: StoreTableEntity
 }
