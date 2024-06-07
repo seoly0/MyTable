@@ -2,11 +2,11 @@ package me.seoly.goodtable.core.model.entity
 
 import jakarta.persistence.*
 import me.seoly.goodtable.core.Const
-import org.hibernate.annotations.SQLDelete
-import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.SQLRestriction
 
 @Entity
 @Table(
@@ -37,16 +37,13 @@ data class StoreEntity (
     var introduction: String = ""
 
     @Column
-    var opening: String = ""
-
-    @Column
     var blueprint: String = ""
 
     @Column
     var rating: String = ""
 
-    @Column
-    var policy: String = ""
+//    @Column
+//    var policy: String = ""
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false, insertable = false, updatable = false)
