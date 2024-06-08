@@ -24,6 +24,7 @@ class ExceptionHandlingAdvisor(
     ): ResponseEntity<CommonPayload.Response<Map<String, String?>>> {
 
         val requestBodyString = request.inputStream.readAllBytes().toString(Charsets.UTF_8)
+        val jsonNode = objectMapper.readTree(requestBodyString)
 
         val res = ResponseEntity(
             CommonPayload.Response(
@@ -31,7 +32,10 @@ class ExceptionHandlingAdvisor(
                 request = CommonPayload.Request(
                     path = request.requestURI,
                     query = request.queryString,
-                    body = if (requestBodyString.isBlank()) null else objectMapper.readValue(requestBodyString, HashMap::class.java)
+                    body = if (requestBodyString.isBlank()) null
+                    else if (jsonNode.isObject) objectMapper.readValue(requestBodyString, HashMap::class.java)
+                    else if (jsonNode.isArray) objectMapper.readValue(requestBodyString, List::class.java)
+                    else null
                 ),
                 contents = exception.map,
             ),
@@ -48,6 +52,7 @@ class ExceptionHandlingAdvisor(
     ): ResponseEntity<CommonPayload.Response<Map<String, String?>>> {
 
         val requestBodyString = request.inputStream.readAllBytes().toString(Charsets.UTF_8)
+        val jsonNode = objectMapper.readTree(requestBodyString)
 
         val res = ResponseEntity(
             CommonPayload.Response(
@@ -55,7 +60,10 @@ class ExceptionHandlingAdvisor(
                 request = CommonPayload.Request(
                     path = request.requestURI,
                     query = request.queryString,
-                    body = if (requestBodyString.isBlank()) null else objectMapper.readValue(requestBodyString, HashMap::class.java)
+                    body = if (requestBodyString.isBlank()) null
+                    else if (jsonNode.isObject) objectMapper.readValue(requestBodyString, HashMap::class.java)
+                    else if (jsonNode.isArray) objectMapper.readValue(requestBodyString, List::class.java)
+                    else null
                 ),
                 contents = mapOf(
                     "message" to exception.message
