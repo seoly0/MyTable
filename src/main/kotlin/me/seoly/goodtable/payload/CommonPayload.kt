@@ -1,8 +1,6 @@
 package me.seoly.goodtable.payload
 
-import jakarta.servlet.ServletRequest
 import java.time.LocalDateTime
-import java.util.Date
 
 class CommonPayload {
     data class Response<Content: Any?> (
