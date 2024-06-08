@@ -104,7 +104,7 @@ class StoreService(
         create: List<StorePayload.Request.Opening>
     ): List<StorePayload.Response.Opening> {
 
-        val list = storeOpeningRepository.findAllByStoreId(storeId)
+        val entityList = storeOpeningRepository.findAllByStoreId(storeId)
 
         val result = create.map {
 
@@ -116,9 +116,9 @@ class StoreService(
                 throw InvalidTimeException("닫는 시간이 마지막 주문 시간을 앞설 수 없습니다.")
             }
 
-            val exist = list.filter { entity -> entity.dayOfWeek == it.dayOfWeek }
+            val filtered = entityList.filter { entity -> entity.dayOfWeek == it.dayOfWeek }
 
-            if (exist.isEmpty()) {
+            if (filtered.isEmpty()) {
                 StoreOpeningEntity(
                     storeId = storeId,
                     dayOfWeek = it.dayOfWeek,
@@ -128,7 +128,7 @@ class StoreService(
                 )
             }
             else {
-                val entity = exist[0]
+                val entity = filtered[0]
                 entity.openTime = it.openTime
                 entity.closeTime = it.closeTime
                 entity.lastOrderTime = it.lastOrderTime
