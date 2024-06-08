@@ -40,4 +40,22 @@ class StoreController(
     ) {
         TODO()
     }
+
+    @GetMapping("/store/{storeId}/isOpened")
+    fun getStoreIsOpened(
+        @PathVariable storeId: Long,
+    ) = storeService.getStoreIsOpened(storeId)
+
+
+    @PostMapping("/store/{storeId}/opening")
+    fun postStoreOpening(
+        @PathVariable storeId: Long,
+        @RequestBody create: List<StorePayload.Request.Opening>,
+    ) = storeService.setStoreOpening(storeId, create)
+
+
+    @GetMapping("/store/{storeId}/opening")
+    fun getStoreOpening(
+        @PathVariable storeId: Long,
+    ) = storeService.serveStoreOpening(storeId)
 }

@@ -6,10 +6,8 @@ import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
-import java.io.Serializable
 import java.time.DayOfWeek
-import java.time.LocalTime
-import java.util.*
+
 
 @Entity
 @Table(
