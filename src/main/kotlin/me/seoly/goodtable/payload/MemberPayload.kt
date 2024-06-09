@@ -19,12 +19,9 @@ class MemberPayload {
 
     class Response {
 
-        class Default {
-            val id: Long = 0
-            lateinit var createdAt: LocalDateTime
-            lateinit var updatedAt: LocalDateTime
-            val storeId: Long = 0
-            val accountId: Long = 0
+        class Default: CommonPayload.ResponseBase() {
+            var storeId: Long = 0
+            var accountId: Long = 0
             lateinit var memberType: MemberType
         }
     }
