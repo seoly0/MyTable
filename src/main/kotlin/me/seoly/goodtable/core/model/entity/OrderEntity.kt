@@ -2,6 +2,7 @@ package me.seoly.goodtable.core.model.entity
 
 import jakarta.persistence.*
 import me.seoly.goodtable.core.model.type.OrderStateType
+import me.seoly.goodtable.core.model.type.OrderType
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import me.seoly.spring.jpa.BaseEntity
@@ -33,6 +34,10 @@ data class OrderEntity (
 
     @Column
     var numOfPeople: Int,
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    var type: OrderType,
 
     @Column
     @Enumerated(EnumType.STRING)
