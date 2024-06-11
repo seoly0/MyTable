@@ -4,4 +4,5 @@ enum class OptionConstraint {
     AT_LEAST,
     AT_MOST,
     ONLY,
+    NONE,
 }

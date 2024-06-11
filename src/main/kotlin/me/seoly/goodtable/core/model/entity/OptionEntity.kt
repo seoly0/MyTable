@@ -35,7 +35,7 @@ data class OptionEntity (
     var constraint: OptionConstraint,
 
     @Column
-    var constraintNumber: Int,
+    var constraintNumber: Int?,
 
     @Column
     var default: Long?,
