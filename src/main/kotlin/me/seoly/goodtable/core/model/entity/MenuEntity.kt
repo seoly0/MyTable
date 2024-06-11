@@ -44,6 +44,6 @@ data class MenuEntity (
     @JoinColumn(name = "category_id", nullable = false, updatable = false, insertable = false)
     lateinit var category: MenuCategoryEntity
 
-    @OneToMany(fetch = FetchType.LAZY)
-    var options: List<OptionEntity> = emptyList()
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    lateinit var relations: List<MenuOptionRelation>
 }

@@ -52,4 +52,7 @@ data class OptionEntity (
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "option_id")
     var itemList: List<OptionItemEntity> = mutableListOf()
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "option")
+    var relations: List<MenuOptionRelation> = emptyList()
 }

@@ -35,11 +35,11 @@ class MenuOptionRelation {
     @JoinColumn(name = "store_id", nullable = false, updatable = false, insertable = false)
     lateinit var store: StoreEntity
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false, updatable = false, insertable = false)
     lateinit var menu: MenuEntity
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_id", nullable = false, updatable = false, insertable = false)
     lateinit var option: OptionEntity
 }
