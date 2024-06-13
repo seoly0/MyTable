@@ -1,6 +1,6 @@
 import java.net.URI
 
-rootProject.name = "GoodTable"
+rootProject.name = "MyTable"
 
 sourceControl {
     gitRepository(URI("https://github.com/seoly0/SpringBase.git")) {
