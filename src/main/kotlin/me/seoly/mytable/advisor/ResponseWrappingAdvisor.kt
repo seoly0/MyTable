@@ -1,7 +1,7 @@
 package me.seoly.mytable.advisor
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import me.seoly.mytable.payload.CommonPayload
+import me.seoly.mytable.serializer.CommonPayload
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter

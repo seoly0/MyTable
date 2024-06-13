@@ -1,4 +1,4 @@
-package me.seoly.mytable.payload
+package me.seoly.mytable.serializer
 
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.DayOfWeek

@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.seoly.mytable.core.model.type.OrderStateType
-import me.seoly.mytable.payload.OrderPayload
+import me.seoly.mytable.serializer.OrderPayload
 import me.seoly.mytable.service.OrderService
 import org.springframework.web.bind.annotation.*
 

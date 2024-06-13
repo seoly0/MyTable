@@ -2,7 +2,7 @@ package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.servlet.http.HttpServletRequest
-import me.seoly.mytable.payload.AccountPayload
+import me.seoly.mytable.serializer.AccountPayload
 import me.seoly.mytable.service.AccountService
 import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.*

@@ -1,4 +1,4 @@
-package me.seoly.mytable.payload
+package me.seoly.mytable.serializer
 
 import me.seoly.mytable.core.model.type.MenuStateType
 

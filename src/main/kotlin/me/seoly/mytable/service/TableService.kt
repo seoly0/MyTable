@@ -2,7 +2,7 @@ package me.seoly.mytable.service
 
 import me.seoly.mytable.core.model.entity.StoreTableEntity
 import me.seoly.mytable.exception.EntityNotExistException
-import me.seoly.mytable.payload.TablePayload
+import me.seoly.mytable.serializer.TablePayload
 import me.seoly.mytable.repository.StoreTableRepository
 import me.seoly.utils.ModelMapper
 import org.springframework.stereotype.Service

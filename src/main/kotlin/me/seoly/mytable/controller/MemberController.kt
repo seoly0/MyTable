@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.payload.MemberPayload
+import me.seoly.mytable.serializer.MemberPayload
 import me.seoly.mytable.service.MemberService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping

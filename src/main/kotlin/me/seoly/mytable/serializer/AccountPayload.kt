@@ -1,4 +1,4 @@
-package me.seoly.mytable.payload
+package me.seoly.mytable.serializer
 
 class AccountPayload {
 

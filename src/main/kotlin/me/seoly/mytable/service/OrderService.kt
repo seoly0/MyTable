@@ -3,7 +3,7 @@ package me.seoly.mytable.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import me.seoly.mytable.core.model.entity.OrderEntity
 import me.seoly.mytable.core.model.type.OrderStateType
-import me.seoly.mytable.payload.OrderPayload
+import me.seoly.mytable.serializer.OrderPayload
 import me.seoly.mytable.repository.MenuRepository
 import me.seoly.mytable.repository.OrderRepository
 import me.seoly.utils.ModelMapper
