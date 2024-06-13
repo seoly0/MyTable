@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.payload.StorePayload
+import me.seoly.mytable.serializer.StorePayload
 import me.seoly.mytable.service.StoreService
 import org.springframework.web.bind.annotation.*
 

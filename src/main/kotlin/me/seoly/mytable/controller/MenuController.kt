@@ -1,8 +1,8 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.payload.CategoryPayload
-import me.seoly.mytable.payload.MenuPayload
+import me.seoly.mytable.serializer.CategoryPayload
+import me.seoly.mytable.serializer.MenuPayload
 import me.seoly.mytable.service.MenuService
 import org.springframework.web.bind.annotation.*
 

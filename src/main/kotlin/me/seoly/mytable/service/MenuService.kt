@@ -7,9 +7,9 @@ import me.seoly.mytable.core.model.entity.OptionEntity
 import me.seoly.mytable.core.model.entity.OptionItemEntity
 import me.seoly.mytable.core.model.type.MenuStateType
 import me.seoly.mytable.exception.EntityNotExistException
-import me.seoly.mytable.payload.CategoryPayload
-import me.seoly.mytable.payload.MenuPayload
-import me.seoly.mytable.payload.OptionPayload
+import me.seoly.mytable.serializer.CategoryPayload
+import me.seoly.mytable.serializer.MenuPayload
+import me.seoly.mytable.serializer.OptionPayload
 import me.seoly.mytable.repository.*
 import me.seoly.utils.ModelMapper
 import org.springframework.stereotype.Service

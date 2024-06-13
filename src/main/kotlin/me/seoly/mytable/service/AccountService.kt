@@ -4,7 +4,7 @@ import me.seoly.mytable.core.model.entity.AccountEntity
 import me.seoly.mytable.core.model.type.AccountStateType
 import me.seoly.mytable.exception.EntityDuplicatedException
 import me.seoly.mytable.exception.EntityNotExistException
-import me.seoly.mytable.payload.AccountPayload
+import me.seoly.mytable.serializer.AccountPayload
 import me.seoly.mytable.repository.AccountRepository
 import me.seoly.utils.ModelMapper
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException

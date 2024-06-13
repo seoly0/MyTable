@@ -1,7 +1,7 @@
 package me.seoly.mytable.service
 
 import me.seoly.mytable.core.model.entity.MemberEntity
-import me.seoly.mytable.payload.MemberPayload
+import me.seoly.mytable.serializer.MemberPayload
 import me.seoly.mytable.repository.MemberRepository
 import me.seoly.utils.ModelMapper
 import org.springframework.stereotype.Service

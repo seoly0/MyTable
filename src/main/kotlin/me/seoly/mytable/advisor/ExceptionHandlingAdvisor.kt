@@ -3,7 +3,7 @@ package me.seoly.mytable.advisor
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletRequest
 import me.seoly.mytable.exception.ApplicationException
-import me.seoly.mytable.payload.CommonPayload
+import me.seoly.mytable.serializer.CommonPayload
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler

@@ -7,7 +7,7 @@ import me.seoly.mytable.core.model.entity.StoreOpeningEntity
 import me.seoly.mytable.core.model.type.MemberType
 import me.seoly.mytable.exception.EntityNotExistException
 import me.seoly.mytable.exception.InvalidTimeException
-import me.seoly.mytable.payload.StorePayload
+import me.seoly.mytable.serializer.StorePayload
 import me.seoly.mytable.repository.MemberRepository
 import me.seoly.mytable.repository.StoreConfigRepository
 import me.seoly.mytable.repository.StoreOpeningRepository
