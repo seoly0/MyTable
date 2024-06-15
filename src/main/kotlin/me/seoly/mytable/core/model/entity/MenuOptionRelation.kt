@@ -15,20 +15,20 @@ import jakarta.persistence.Table
     name = "menu_option_relation",
     indexes = []
 )
-class MenuOptionRelation {
+class MenuOptionRelation(
+    @Column(name = "store_id")
+    var storeId: Long = 0,
+
+    @Column(name = "menu_id")
+    var menuId: Long = 0,
+
+    @Column(name = "option_id")
+    var optionId: Long = 0,
+) {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
-
-    @Column(name = "store_id")
-    var storeId: Long = 0
-
-    @Column(name = "menu_id")
-    var menuId: Long = 0
-
-    @Column(name = "option_id")
-    var optionId: Long = 0
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false, updatable = false, insertable = false)
