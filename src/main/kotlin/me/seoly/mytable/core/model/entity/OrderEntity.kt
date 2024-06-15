@@ -43,7 +43,8 @@ data class OrderEntity (
     @Enumerated(EnumType.STRING)
     var state: OrderStateType,
 ): BaseEntity()  {
-    @Column
+
+    @Lob
     lateinit var details: String
 
     @Column
