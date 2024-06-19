@@ -7,7 +7,7 @@ import me.seoly.mytable.core.model.entity.StoreOpeningEntity
 import me.seoly.mytable.core.model.type.MemberType
 import me.seoly.mytable.exception.EntityNotExistException
 import me.seoly.mytable.exception.InvalidTimeException
-import me.seoly.mytable.serializer.StorePayload
+import me.seoly.mytable.serializer.StoreSerializer
 import me.seoly.mytable.repository.MemberRepository
 import me.seoly.mytable.repository.StoreConfigRepository
 import me.seoly.mytable.repository.StoreOpeningRepository
@@ -25,7 +25,7 @@ class StoreService(
     private val modelMapper: ModelMapper,
     ) {
 
-    fun createStore(create: StorePayload.Request.Create): StorePayload.Response.Default {
+    fun createStore(create: StoreSerializer.Request.Create): StoreSerializer.Response.Default {
 
         val newStore = modelMapper.map(create, StoreEntity::class.java)
         storeRepository.save(newStore)
@@ -40,10 +40,10 @@ class StoreService(
         )
         memberRepository.save(newMember)
 
-        return modelMapper.map(newStore, StorePayload.Response.Default::class.java)
+        return modelMapper.map(newStore, StoreSerializer.Response.Default::class.java)
     }
 
-    fun serveStore(storeId: Long): StorePayload.Response.Default {
+    fun serveStore(storeId: Long): StoreSerializer.Response.Default {
 
         val entity = storeRepository.findById(storeId)
 
@@ -51,14 +51,14 @@ class StoreService(
             throw EntityNotExistException("존재하지 않는 지점입니다.")
         }
 
-        return modelMapper.map(entity, StorePayload.Response.Default::class.java)
+        return modelMapper.map(entity, StoreSerializer.Response.Default::class.java)
     }
 
-    fun serveMyStoreList(accountId: Long): List<StorePayload.Response.Default> {
+    fun serveMyStoreList(accountId: Long): List<StoreSerializer.Response.Default> {
         val entityList = storeRepository.getAllByOwnerId(accountId)
 
         return entityList.map {
-            modelMapper.map(it, StorePayload.Response.Default::class.java)
+            modelMapper.map(it, StoreSerializer.Response.Default::class.java)
         }
     }
 
@@ -101,8 +101,8 @@ class StoreService(
 
     fun setStoreOpening(
         storeId: Long,
-        create: List<StorePayload.Request.Opening>
-    ): List<StorePayload.Response.Opening> {
+        create: List<StoreSerializer.Request.Opening>
+    ): List<StoreSerializer.Response.Opening> {
 
         val entityList = storeOpeningRepository.findAllByStoreId(storeId)
 
@@ -139,15 +139,15 @@ class StoreService(
         storeOpeningRepository.saveAll(result)
 
         return result.map {
-            modelMapper.map(it, StorePayload.Response.Opening::class.java)
+            modelMapper.map(it, StoreSerializer.Response.Opening::class.java)
         }
     }
 
-    fun serveStoreOpening(storeId: Long): List<StorePayload.Response.Opening> {
+    fun serveStoreOpening(storeId: Long): List<StoreSerializer.Response.Opening> {
         val list = storeOpeningRepository.findAllByStoreId(storeId)
 
         return list.map {
-            modelMapper.map(it, StorePayload.Response.Opening::class.java)
+            modelMapper.map(it, StoreSerializer.Response.Opening::class.java)
         }
     }
 }

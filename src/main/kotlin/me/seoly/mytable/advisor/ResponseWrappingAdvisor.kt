@@ -1,7 +1,7 @@
 package me.seoly.mytable.advisor
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import me.seoly.mytable.serializer.CommonPayload
+import me.seoly.mytable.serializer.CommonSerializer
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
@@ -31,8 +31,8 @@ class ResponseWrappingAdvisor(
         val requestBodyString = request.body.readAllBytes().toString(Charsets.UTF_8)
         val jsonNode = objectMapper.readTree(requestBodyString)
 
-        return CommonPayload.Response(
-            request = CommonPayload.Request(
+        return CommonSerializer.Response(
+            request = CommonSerializer.Request(
                 path = request.uri.path,
                 query = request.uri.query,
                 body = if (requestBodyString.isBlank()) null

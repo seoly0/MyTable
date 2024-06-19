@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 import io.swagger.v3.oas.annotations.tags.Tag
 import me.seoly.mytable.core.model.type.OrderStateType
-import me.seoly.mytable.serializer.OrderPayload
+import me.seoly.mytable.serializer.OrderSerializer
 import me.seoly.mytable.service.OrderService
 import org.springframework.web.bind.annotation.*
 
@@ -14,7 +14,7 @@ class OrderController (
 
     @PostMapping("/customer/my/order")
     fun postCustomerOrder(
-        @RequestBody body: OrderPayload.Request.Create,
+        @RequestBody body: OrderSerializer.Request.Create,
     ) = orderService.createCustomerOrder(1, body)
 
     @GetMapping("/store/{storeId}/order/list")
@@ -97,7 +97,7 @@ class OrderController (
     fun patchStoreOrder(
         @PathVariable storeId: Long,
         @PathVariable orderId: Long,
-        @RequestBody body: OrderPayload.Request.OrderState,
+        @RequestBody body: OrderSerializer.Request.OrderState,
     ) = orderService.patchState(orderId, storeId, null, body)
 
     @GetMapping("/customer/{customerId}/order/{orderId}")
@@ -110,6 +110,6 @@ class OrderController (
     fun patchCustomerOrder(
         @PathVariable customerId: Long,
         @PathVariable orderId: Long,
-        @RequestBody body: OrderPayload.Request.OrderState,
+        @RequestBody body: OrderSerializer.Request.OrderState,
     ) = orderService.patchState(orderId, null, customerId, body)
 }

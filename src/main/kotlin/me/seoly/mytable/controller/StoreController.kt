@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.StorePayload
+import me.seoly.mytable.serializer.StoreSerializer
 import me.seoly.mytable.service.StoreService
 import org.springframework.web.bind.annotation.*
 
@@ -14,7 +14,7 @@ class StoreController(
 
     @PostMapping("/store")
     fun postStore(
-        @RequestBody body: StorePayload.Request.Create,
+        @RequestBody body: StoreSerializer.Request.Create,
     ) = storeService.createStore(body)
 
     @GetMapping("/store/my")
@@ -50,7 +50,7 @@ class StoreController(
     @PostMapping("/store/{storeId}/opening")
     fun postStoreOpening(
         @PathVariable storeId: Long,
-        @RequestBody create: List<StorePayload.Request.Opening>,
+        @RequestBody create: List<StoreSerializer.Request.Opening>,
     ) = storeService.setStoreOpening(storeId, create)
 
 

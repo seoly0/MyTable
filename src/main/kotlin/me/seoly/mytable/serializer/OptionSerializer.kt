@@ -2,7 +2,7 @@ package me.seoly.mytable.serializer
 
 import me.seoly.mytable.core.model.type.OptionConstraint
 
-class OptionPayload {
+class OptionSerializer {
 
     class Request {
 
@@ -24,7 +24,7 @@ class OptionPayload {
 
     class Response {
 
-        open class Default: CommonPayload.ResponseBase() {
+        open class Default: CommonSerializer.ResponseBase() {
             var name: String = ""
             var required: Boolean = false
             lateinit var constraint: OptionConstraint
@@ -42,7 +42,7 @@ class OptionPayload {
             var itemList = emptyList<Item>()
         }
 
-        class Item: CommonPayload.ResponseBase() {
+        class Item: CommonSerializer.ResponseBase() {
             var name: String = ""
             var price: Int = 0
         }

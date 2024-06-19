@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import me.seoly.mytable.core.model.entity.OrderEntity
 import me.seoly.mytable.core.model.type.OrderStateType
 import me.seoly.mytable.exception.EntityNotExistException
-import me.seoly.mytable.serializer.OrderPayload
+import me.seoly.mytable.serializer.OrderSerializer
 import me.seoly.mytable.repository.MenuRepository
 import me.seoly.mytable.repository.OptionItemRepository
 import me.seoly.mytable.repository.OptionRepository
@@ -25,8 +25,8 @@ class OrderService (
 
     fun createCustomerOrder(
         customerId: Long,
-        create: OrderPayload.Request.Create,
-    ): OrderPayload.Response.WithDetails {
+        create: OrderSerializer.Request.Create,
+    ): OrderSerializer.Response.WithDetails {
 
         val objectMapper = ObjectMapper()
         val entity = OrderEntity(
@@ -49,7 +49,7 @@ class OrderService (
         return createResponse(entity, details)
     }
 
-    fun parseSimple(simple: OrderPayload.OrderSimple, storeId: Long): OrderPayload.OrderDetail {
+    fun parseSimple(simple: OrderSerializer.OrderSimple, storeId: Long): OrderSerializer.OrderDetail {
 
         val menuIdList = simple.menuList.map { it.menuId }.distinct()
         val optionIdList = simple.menuList.map { it.optionList.map { o -> o.optionId } }.flatten().distinct()
@@ -59,10 +59,10 @@ class OrderService (
         val optionEntityList = optionRepository.findAllByIdInAndStoreId(optionIdList, storeId)
         val itemEntityList = itemRepository.findAllByIdIn(itemIdList)
 
-        val details = OrderPayload.OrderDetail()
+        val details = OrderSerializer.OrderDetail()
 
         simple.menuList.forEach { menuSimple ->
-            val menuDetail = OrderPayload.OrderDetail.Menu()
+            val menuDetail = OrderSerializer.OrderDetail.Menu()
             val menuEntity = menuEntityList.find { it.id == menuSimple.menuId } ?: throw EntityNotExistException()
             menuDetail.menuId = menuEntity.id
             menuDetail.quantity = menuSimple.quantity
@@ -70,13 +70,13 @@ class OrderService (
             menuDetail.unitPrice = menuEntity.price
             details.menuList.add(menuDetail)
             menuSimple.optionList.forEach { optionSimple ->
-                val optionDetail = OrderPayload.OrderDetail.Menu.Option()
+                val optionDetail = OrderSerializer.OrderDetail.Menu.Option()
                 val optionEntity = optionEntityList.find { it.id == optionSimple.optionId } ?: throw EntityNotExistException()
                 optionDetail.optionId = optionEntity.id
                 optionDetail.name = optionEntity.name
                 menuDetail.optionList.add(optionDetail)
                 optionSimple.itemList.forEach { itemSimple ->
-                    val itemDetail = OrderPayload.OrderDetail.Menu.Option.Item()
+                    val itemDetail = OrderSerializer.OrderDetail.Menu.Option.Item()
                     val itemEntity = itemEntityList.find { it.id == itemSimple.itemId } ?: throw EntityNotExistException()
                     itemDetail.itemId = itemEntity.id
                     itemDetail.quantity = itemSimple.quantity
@@ -92,9 +92,9 @@ class OrderService (
 
         return details
     }
-    fun createResponse(entity: OrderEntity, details: OrderPayload.OrderDetail? = null): OrderPayload.Response.WithDetails {
+    fun createResponse(entity: OrderEntity, details: OrderSerializer.OrderDetail? = null): OrderSerializer.Response.WithDetails {
 
-        val ret = OrderPayload.Response.WithDetails()
+        val ret = OrderSerializer.Response.WithDetails()
         ret.id = entity.id
         ret.createdAt = entity.createdAt.toString()
         ret.updatedAt = entity.updatedAt.toString()
@@ -111,45 +111,45 @@ class OrderService (
             ret.details = details
         }
         else {
-            ret.details = objectMapper.readValue(entity.details, OrderPayload.OrderDetail::class.java)
+            ret.details = objectMapper.readValue(entity.details, OrderSerializer.OrderDetail::class.java)
         }
 
         return ret
     }
 
-    fun serveStoreOrderList(storeId: Long): List<OrderPayload.Response.Default> {
+    fun serveStoreOrderList(storeId: Long): List<OrderSerializer.Response.Default> {
 
         val orderList = orderRepository.findAllByStoreId(storeId)
 
         return orderList.map {
-            modelMapper.map(it, OrderPayload.Response.Default::class.java)
+            modelMapper.map(it, OrderSerializer.Response.Default::class.java)
         }
     }
 
-    fun serveStoreOrderListByState(storeId: Long, state: OrderStateType): List<OrderPayload.Response.Default> {
+    fun serveStoreOrderListByState(storeId: Long, state: OrderStateType): List<OrderSerializer.Response.Default> {
 
         val orderList = orderRepository.findAllByStoreIdAndState(storeId, state)
 
         return orderList.map {
-            modelMapper.map(it, OrderPayload.Response.Default::class.java)
+            modelMapper.map(it, OrderSerializer.Response.Default::class.java)
         }
     }
 
-    fun serveCustomerOrderList(customerId: Long): List<OrderPayload.Response.Default> {
+    fun serveCustomerOrderList(customerId: Long): List<OrderSerializer.Response.Default> {
 
         val orderList = orderRepository.findAllByCustomerId(customerId)
 
         return orderList.map {
-            modelMapper.map(it, OrderPayload.Response.Default::class.java)
+            modelMapper.map(it, OrderSerializer.Response.Default::class.java)
         }
     }
 
-    fun serveCustomerOrderListByState(customerId: Long, state: OrderStateType): List<OrderPayload.Response.Default> {
+    fun serveCustomerOrderListByState(customerId: Long, state: OrderStateType): List<OrderSerializer.Response.Default> {
 
         val orderList = orderRepository.findAllByCustomerIdAndState(customerId, state)
 
         return orderList.map {
-            modelMapper.map(it, OrderPayload.Response.Default::class.java)
+            modelMapper.map(it, OrderSerializer.Response.Default::class.java)
         }
     }
 
@@ -170,7 +170,7 @@ class OrderService (
     }
 
     @Transactional(readOnly = true)
-    fun serveStoreOrderDetail(storeId: Long, orderId: Long): OrderPayload.Response.WithDetails {
+    fun serveStoreOrderDetail(storeId: Long, orderId: Long): OrderSerializer.Response.WithDetails {
 
         val order = orderRepository.findByIdAndStoreId(orderId, storeId) ?: throw EntityNotExistException()
         return createResponse(order)
@@ -180,8 +180,8 @@ class OrderService (
         orderId: Long,
         storeId: Long?,
         customerId: Long?,
-        patch: OrderPayload.Request.OrderState
-    ): OrderPayload.Response.WithDetails {
+        patch: OrderSerializer.Request.OrderState
+    ): OrderSerializer.Response.WithDetails {
 
         val entity = orderRepository.findByIdAndStoreIdOrCustomerId(orderId, storeId, customerId)
         entity.state = patch.state

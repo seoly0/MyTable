@@ -1,6 +1,6 @@
 package me.seoly.mytable.serializer
 
-class TablePayload {
+class TableSerializer {
 
     class Request {
 
@@ -18,7 +18,7 @@ class TablePayload {
 
     class Response {
 
-        class Default: CommonPayload.ResponseBase() {
+        class Default: CommonSerializer.ResponseBase() {
             var storeId: Long = 0
             var name: String = ""
             var capacity: Int = 0

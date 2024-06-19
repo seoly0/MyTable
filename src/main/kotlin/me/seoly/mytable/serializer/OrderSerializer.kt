@@ -4,7 +4,7 @@ import me.seoly.mytable.core.model.type.OrderStateType
 import me.seoly.mytable.core.model.type.OrderType
 import java.time.LocalDateTime
 
-class OrderPayload {
+class OrderSerializer {
 
     class Request {
 
@@ -24,7 +24,7 @@ class OrderPayload {
     }
 
     class Response {
-        open class Default: CommonPayload.ResponseBase() {
+        open class Default: CommonSerializer.ResponseBase() {
             var customerId: Long = 0
             var storeId: Long = 0
             var tableId: Long = 0

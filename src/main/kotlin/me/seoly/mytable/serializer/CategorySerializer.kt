@@ -1,6 +1,6 @@
 package me.seoly.mytable.serializer
 
-class CategoryPayload {
+class CategorySerializer {
 
     class Request {
 
@@ -11,7 +11,7 @@ class CategoryPayload {
 
     class Response {
 
-        class Default: CommonPayload.ResponseBase() {
+        class Default: CommonSerializer.ResponseBase() {
             var storeId: Long = 0
             lateinit var name: String
         }

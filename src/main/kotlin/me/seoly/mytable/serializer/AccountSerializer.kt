@@ -1,6 +1,6 @@
 package me.seoly.mytable.serializer
 
-class AccountPayload {
+class AccountSerializer {
 
     class Request {
         class Create {
@@ -12,7 +12,7 @@ class AccountPayload {
     }
 
     class Response {
-        class Default: CommonPayload.ResponseBase() {
+        class Default: CommonSerializer.ResponseBase() {
             var email: String? = null
             var name: String? = null
         }

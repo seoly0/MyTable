@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.TablePayload
+import me.seoly.mytable.serializer.TableSerializer
 import me.seoly.mytable.service.TableService
 import org.springframework.web.bind.annotation.*
 
@@ -15,7 +15,7 @@ class TableController(
     @PostMapping("/{storeId}/table")
     fun postStoreTable(
         @PathVariable storeId: Long,
-        @RequestBody body: TablePayload.Request.Create,
+        @RequestBody body: TableSerializer.Request.Create,
     ) = tableService.createTable(storeId, body)
 
     @GetMapping("/{storeId}/table/list")

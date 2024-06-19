@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.MemberPayload
+import me.seoly.mytable.serializer.MemberSerializer
 import me.seoly.mytable.service.MemberService
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -22,7 +22,7 @@ class MemberController (
     @PostMapping("/store/{storeId}/member")
     fun postStoreMember (
         @PathVariable storeId: Long,
-        @RequestBody body: MemberPayload.Request.Create,
+        @RequestBody body: MemberSerializer.Request.Create,
     ) = service.createMember(storeId, body)
 
     @GetMapping("/store/{storeId}/member/list")
@@ -34,7 +34,7 @@ class MemberController (
     fun patchStoreMemberType (
         @PathVariable storeId: Long,
         @PathVariable memberId: Long,
-        @RequestBody body: MemberPayload.Request.PatchMemberType,
+        @RequestBody body: MemberSerializer.Request.PatchMemberType,
     ) {
 
     }

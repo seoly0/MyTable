@@ -2,7 +2,7 @@ package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.servlet.http.HttpServletRequest
-import me.seoly.mytable.serializer.AccountPayload
+import me.seoly.mytable.serializer.AccountSerializer
 import me.seoly.mytable.service.AccountService
 import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.*
@@ -17,7 +17,7 @@ class AccountController(
     fun postAccount(
         request: HttpServletRequest,
         @RequestHeader headers: HttpHeaders,
-        @RequestBody body: AccountPayload.Request.Create,
+        @RequestBody body: AccountSerializer.Request.Create,
     ) = accountService.createAccount(body)
 
     @GetMapping(path = [

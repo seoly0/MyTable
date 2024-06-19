@@ -3,7 +3,7 @@ package me.seoly.mytable.serializer
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.DayOfWeek
 
-class StorePayload {
+class StoreSerializer {
 
     class Request {
         data class Create(
@@ -26,7 +26,7 @@ class StorePayload {
     }
 
     class Response {
-        class Default: CommonPayload.ResponseBase() {
+        class Default: CommonSerializer.ResponseBase() {
             lateinit var name: String
         }
 

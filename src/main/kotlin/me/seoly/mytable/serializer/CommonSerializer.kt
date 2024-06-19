@@ -2,7 +2,7 @@ package me.seoly.mytable.serializer
 
 import java.time.LocalDateTime
 
-class CommonPayload {
+class CommonSerializer {
     data class Response<Content: Any?> (
         val success: Boolean = true,
         val request: Request,

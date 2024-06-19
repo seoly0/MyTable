@@ -2,7 +2,7 @@ package me.seoly.mytable.serializer
 
 import me.seoly.mytable.core.model.type.MenuStateType
 
-class MenuPayload {
+class MenuSerializer {
 
     class Request {
 
@@ -15,7 +15,7 @@ class MenuPayload {
 
     class Response {
 
-        class Default: CommonPayload.ResponseBase() {
+        class Default: CommonSerializer.ResponseBase() {
             var storeId: Long = 0
             var categoryId: Long? = null
             var name: String = ""

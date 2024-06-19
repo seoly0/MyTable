@@ -1,7 +1,7 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.OptionPayload
+import me.seoly.mytable.serializer.OptionSerializer
 import me.seoly.mytable.service.MenuService
 import org.springframework.web.bind.annotation.*
 
@@ -15,7 +15,7 @@ class OptionController (
     @PostMapping("/option")
     fun postStoreMenuOption(
         @PathVariable storeId: Long,
-        @RequestBody body: OptionPayload.Request.Create,
+        @RequestBody body: OptionSerializer.Request.Create,
     ) = menuService.createOption(storeId, body)
 
     @GetMapping("/option/{optionId}")

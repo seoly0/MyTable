@@ -3,7 +3,7 @@ package me.seoly.mytable.advisor
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletRequest
 import me.seoly.mytable.exception.ApplicationException
-import me.seoly.mytable.serializer.CommonPayload
+import me.seoly.mytable.serializer.CommonSerializer
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -21,15 +21,15 @@ class ExceptionHandlingAdvisor(
     fun handleException(
         exception: ApplicationException,
         request: HttpServletRequest
-    ): ResponseEntity<CommonPayload.Response<Map<String, String?>>> {
+    ): ResponseEntity<CommonSerializer.Response<Map<String, String?>>> {
 
         val requestBodyString = request.inputStream.readAllBytes().toString(Charsets.UTF_8)
         val jsonNode = objectMapper.readTree(requestBodyString)
 
         val res = ResponseEntity(
-            CommonPayload.Response(
+            CommonSerializer.Response(
                 success = false,
-                request = CommonPayload.Request(
+                request = CommonSerializer.Request(
                     path = request.requestURI,
                     query = request.queryString,
                     body = if (requestBodyString.isBlank()) null
@@ -49,15 +49,15 @@ class ExceptionHandlingAdvisor(
     fun handleException(
         exception: Exception,
         request: HttpServletRequest
-    ): ResponseEntity<CommonPayload.Response<Map<String, String?>>> {
+    ): ResponseEntity<CommonSerializer.Response<Map<String, String?>>> {
 
         val requestBodyString = request.inputStream.readAllBytes().toString(Charsets.UTF_8)
         val jsonNode = objectMapper.readTree(requestBodyString)
 
         val res = ResponseEntity(
-            CommonPayload.Response(
+            CommonSerializer.Response(
                 success = false,
-                request = CommonPayload.Request(
+                request = CommonSerializer.Request(
                     path = request.requestURI,
                     query = request.queryString,
                     body = if (requestBodyString.isBlank()) null

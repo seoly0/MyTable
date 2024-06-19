@@ -1,8 +1,8 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.CategoryPayload
-import me.seoly.mytable.serializer.MenuPayload
+import me.seoly.mytable.serializer.CategorySerializer
+import me.seoly.mytable.serializer.MenuSerializer
 import me.seoly.mytable.service.MenuService
 import org.springframework.web.bind.annotation.*
 
@@ -16,7 +16,7 @@ class MenuController (
     @PostMapping("/{storeId}/menuCategory")
     fun postStoreMenuCategory (
         @PathVariable storeId: Long,
-        @RequestBody body: CategoryPayload.Request.Create,
+        @RequestBody body: CategorySerializer.Request.Create,
     ) = menuService.createMenuCategory(storeId, body)
 
     @GetMapping("/{storeId}/menuCategory/list")
@@ -49,7 +49,7 @@ class MenuController (
     @PostMapping("/{storeId}/menu")
     fun postStoreMenu (
         @PathVariable storeId: Long,
-        @RequestBody body: MenuPayload.Request.Create,
+        @RequestBody body: MenuSerializer.Request.Create,
     ) = menuService.createMenu(storeId, body)
 
     @GetMapping("/{storeId}/menu/list")

@@ -7,9 +7,9 @@ import me.seoly.mytable.core.model.entity.OptionEntity
 import me.seoly.mytable.core.model.entity.OptionItemEntity
 import me.seoly.mytable.core.model.type.MenuStateType
 import me.seoly.mytable.exception.EntityNotExistException
-import me.seoly.mytable.serializer.CategoryPayload
-import me.seoly.mytable.serializer.MenuPayload
-import me.seoly.mytable.serializer.OptionPayload
+import me.seoly.mytable.serializer.CategorySerializer
+import me.seoly.mytable.serializer.MenuSerializer
+import me.seoly.mytable.serializer.OptionSerializer
 import me.seoly.mytable.repository.*
 import me.seoly.utils.ModelMapper
 import org.springframework.stereotype.Service
@@ -26,26 +26,26 @@ class MenuService (
 
     fun createMenuCategory(
         storeId: Long,
-        create: CategoryPayload.Request.Create,
-    ): CategoryPayload.Response.Default {
+        create: CategorySerializer.Request.Create,
+    ): CategorySerializer.Response.Default {
 
         val entity = modelMapper.map(create, MenuCategoryEntity::class.java)
         entity.storeId = storeId
 
         categoryRepository.save(entity)
 
-        return modelMapper.map(entity, CategoryPayload.Response.Default::class.java)
+        return modelMapper.map(entity, CategorySerializer.Response.Default::class.java)
     }
 
     fun serveStoreMenuCategoryList (
         storeId: Long,
-    ): List<CategoryPayload.Response.Default> {
+    ): List<CategorySerializer.Response.Default> {
         return categoryRepository.findAllByStoreId(storeId).map {
-            modelMapper.map(it, CategoryPayload.Response.Default::class.java)
+            modelMapper.map(it, CategorySerializer.Response.Default::class.java)
         }
     }
 
-    fun createMenu(storeId: Long, create: MenuPayload.Request.Create): MenuPayload.Response.Default {
+    fun createMenu(storeId: Long, create: MenuSerializer.Request.Create): MenuSerializer.Response.Default {
 
         val entity = modelMapper.map(create, MenuEntity::class.java)
         entity.storeId = storeId
@@ -53,31 +53,31 @@ class MenuService (
 
         menuRepository.save(entity)
 
-        return modelMapper.map(entity, MenuPayload.Response.Default::class.java)
+        return modelMapper.map(entity, MenuSerializer.Response.Default::class.java)
     }
 
-    fun serveMenuList(storeId: Long): List<MenuPayload.Response.Default> {
+    fun serveMenuList(storeId: Long): List<MenuSerializer.Response.Default> {
 
         return menuRepository.findAllByStoreId(storeId).map {
-            modelMapper.map(it, MenuPayload.Response.Default::class.java)
+            modelMapper.map(it, MenuSerializer.Response.Default::class.java)
         }
     }
 
-    fun serveMenuDetail(storeId: Long, menuId: Long): MenuPayload.Response.Default {
+    fun serveMenuDetail(storeId: Long, menuId: Long): MenuSerializer.Response.Default {
 
         val entity = menuRepository.findByIdAndStoreId(menuId, storeId) ?: throw EntityNotExistException()
 
-        return modelMapper.map(entity, MenuPayload.Response.Default::class.java)
+        return modelMapper.map(entity, MenuSerializer.Response.Default::class.java)
     }
 
-    fun serveMenuListByCategory(storeId: Long, categoryId: Long): List<MenuPayload.Response.Default> {
+    fun serveMenuListByCategory(storeId: Long, categoryId: Long): List<MenuSerializer.Response.Default> {
 
         return menuRepository.findAllByStoreIdAndCategoryId(storeId, categoryId).map {
-            modelMapper.map(it, MenuPayload.Response.Default::class.java)
+            modelMapper.map(it, MenuSerializer.Response.Default::class.java)
         }
     }
 
-    fun createOption(storeId: Long, create: OptionPayload.Request.Create): OptionPayload.Response.WithItem {
+    fun createOption(storeId: Long, create: OptionSerializer.Request.Create): OptionSerializer.Response.WithItem {
 
         val option = OptionEntity(
             storeId = storeId,
@@ -100,23 +100,23 @@ class MenuService (
 
         itemRepository.saveAll(option.itemList)
 
-        return modelMapper.map(option, OptionPayload.Response.WithItem::class.java)
+        return modelMapper.map(option, OptionSerializer.Response.WithItem::class.java)
     }
 
-    fun serveOption(storeId: Long, optionId: Long): OptionPayload.Response.WithItem {
+    fun serveOption(storeId: Long, optionId: Long): OptionSerializer.Response.WithItem {
         val option = optionRepository.getReferenceById(optionId)
 
-        return modelMapper.map(option, OptionPayload.Response.WithItem::class.java)
+        return modelMapper.map(option, OptionSerializer.Response.WithItem::class.java)
     }
 
     fun createOptionItem(storeId: Long, menuId: Long, optionId: Long) {
 
     }
 
-    fun serveMenuOption(storeId: Long, menuId: Long): List<OptionPayload.Response.WithItem> {
+    fun serveMenuOption(storeId: Long, menuId: Long): List<OptionSerializer.Response.WithItem> {
 
         val optionList = menuOptionRelationRepository.findAllByStoreIdAndMenuId(storeId, menuId)
 
-        return optionList.map { modelMapper.map(it.option, OptionPayload.Response.WithItem::class.java) }
+        return optionList.map { modelMapper.map(it.option, OptionSerializer.Response.WithItem::class.java) }
     }
 }

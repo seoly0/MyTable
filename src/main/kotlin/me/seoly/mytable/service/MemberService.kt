@@ -1,7 +1,7 @@
 package me.seoly.mytable.service
 
 import me.seoly.mytable.core.model.entity.MemberEntity
-import me.seoly.mytable.serializer.MemberPayload
+import me.seoly.mytable.serializer.MemberSerializer
 import me.seoly.mytable.repository.MemberRepository
 import me.seoly.utils.ModelMapper
 import org.springframework.stereotype.Service
@@ -12,7 +12,7 @@ class MemberService (
     private val modelMapper: ModelMapper,
 ) {
 
-    fun createMember(storeId: Long, create: MemberPayload.Request.Create): MemberPayload.Response.Default {
+    fun createMember(storeId: Long, create: MemberSerializer.Request.Create): MemberSerializer.Response.Default {
 
         val entity = MemberEntity(
             storeId = storeId,
@@ -22,13 +22,13 @@ class MemberService (
 
         memberRepository.save(entity)
 
-        return modelMapper.map(entity, MemberPayload.Response.Default::class.java)
+        return modelMapper.map(entity, MemberSerializer.Response.Default::class.java)
     }
 
-    fun serveStoreMemberList(storeId: Long): List<MemberPayload.Response.Default> {
+    fun serveStoreMemberList(storeId: Long): List<MemberSerializer.Response.Default> {
 
         return memberRepository.findAllByStoreId(storeId).map {
-            modelMapper.map(it, MemberPayload.Response.Default::class.java)
+            modelMapper.map(it, MemberSerializer.Response.Default::class.java)
         }
     }
 }
