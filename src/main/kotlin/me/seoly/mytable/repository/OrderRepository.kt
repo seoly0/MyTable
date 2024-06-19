@@ -14,4 +14,5 @@ interface OrderRepository: JpaRepository<OrderEntity, Long> {
     fun findAllByCustomerId(customerId: Long): List<OrderEntity>
     fun findAllByCustomerIdAndState(customerId: Long, state: OrderStateType): List<OrderEntity>
 
+    fun findByIdAndStoreId(id: Long, storeId: Long): OrderEntity?
 }

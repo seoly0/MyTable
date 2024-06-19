@@ -91,7 +91,7 @@ class OrderController (
     fun getStoreOrder(
         @PathVariable storeId: Long,
         @PathVariable orderId: Long,
-    ): Nothing = TODO()
+    ) = orderService.serveStoreOrderDetail(storeId, orderId)
 
     @PatchMapping("/store/{storeId}/order/{orderId}/state")
     fun patchStoreOrder(

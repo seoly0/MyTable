@@ -15,7 +15,7 @@ class OrderPayload {
             val numOfPeople: Int,
             val type: OrderType,
             val state: OrderStateType,
-            val details: OrderDescribe,
+            val details: OrderSimple,
         )
 
         data class OrderState (
@@ -24,31 +24,67 @@ class OrderPayload {
     }
 
     class Response {
-        class Default: CommonPayload.ResponseBase() {
+        open class Default: CommonPayload.ResponseBase() {
             var customerId: Long = 0
             var storeId: Long = 0
             var tableId: Long = 0
+            lateinit var at: String
+            var numOfPeople: Int = 0
+            lateinit var type: OrderType
+            lateinit var state: OrderStateType
+            var totalPrice: Int = 0
+        }
+
+        class WithDetails: Default() {
+            lateinit var details: OrderDetail
         }
     }
 
-    class OrderDescribe {
-        val menuList: List<MenuDescribe> = emptyList()
+    class OrderDetail {
 
-        class MenuDescribe {
-            val menuId: Long = 0
+        var menuList: MutableList<Menu> = mutableListOf()
+        var totalPrice = 0
+
+        class Menu {
+            var menuId: Long = 0
+            lateinit var name: String
+            var unitPrice = 0
             var quantity = 1
-            val optionList: List<OptionDescribe> = emptyList()
+            var optionList: MutableList<Option> = mutableListOf()
 
-            class OptionDescribe {
-                val optionId: Long = 0
-                val itemList: List<ItemDescribe> = emptyList()
+            class Option {
+                var optionId: Long = 0
+                lateinit var name: String
+                var totalPrice = 0
+                val itemList: MutableList<Item> = mutableListOf()
 
-                class ItemDescribe {
-                    val itemId: Long = 0
+                class Item {
+                    var itemId: Long = 0
+                    lateinit var name: String
+                    var unitPrice = 0
                     var quantity = 1
                 }
             }
         }
     }
 
+    class OrderSimple {
+        val menuList: List<Menu> = emptyList()
+
+        class Menu {
+            var menuId: Long = 0
+            var quantity = 1
+            val optionList: List<Option> = emptyList()
+
+            class Option {
+                val optionId: Long = 0
+                val itemList: List<Item> = emptyList()
+
+                class Item {
+                    val itemId: Long = 0
+                    var quantity = 1
+                }
+            }
+        }
+    }
 }
