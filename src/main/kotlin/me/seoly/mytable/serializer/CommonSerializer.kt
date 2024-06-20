@@ -12,7 +12,7 @@ class CommonSerializer {
     )
 
     open class ResponseBase {
-        var id: Long? = null
+        var id: Long = 0
         var createdAt: String = ""
         var updatedAt: String = ""
     }

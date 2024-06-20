@@ -40,7 +40,7 @@ data class StoreEntity (
     var blueprint: String = ""
 
     @Column
-    var rating: String = ""
+    var rating: Int = 0
 
 //    @Column
 //    var policy: String = ""

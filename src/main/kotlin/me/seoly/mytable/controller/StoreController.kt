@@ -1,8 +1,11 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
+import me.seoly.mytable.serializer.CommonSerializer
 import me.seoly.mytable.serializer.StoreSerializer
 import me.seoly.mytable.service.StoreService
+import org.springdoc.core.annotations.ParameterObject
+import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
 @Tag(name = "상점")
@@ -16,6 +19,12 @@ class StoreController(
     fun postStore(
         @RequestBody body: StoreSerializer.Request.Create,
     ) = storeService.createStore(body)
+
+    @GetMapping("/store/list")
+    fun getStoreList(
+        @ParameterObject filter: StoreSerializer.Filter,
+        @ParameterObject pageable: Pageable,
+    ) = storeService.searchStore(filter.name, pageable)
 
     @GetMapping("/store/my")
     fun getMyStore(

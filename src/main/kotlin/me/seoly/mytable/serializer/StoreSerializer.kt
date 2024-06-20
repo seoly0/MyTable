@@ -26,8 +26,13 @@ class StoreSerializer {
     }
 
     class Response {
-        class Default: CommonSerializer.ResponseBase() {
-            lateinit var name: String
+        open class Default: CommonSerializer.ResponseBase() {
+            var name: String = ""
+            var rating = 0
+        }
+
+        class WithOpened: Default() {
+            var isOpened = false
         }
 
         class Opening {
@@ -36,5 +41,9 @@ class StoreSerializer {
             lateinit var closeTime: String
             lateinit var lastOrderTime: String
         }
+    }
+
+    class Filter {
+        var name: String = ""
     }
 }

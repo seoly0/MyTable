@@ -13,6 +13,7 @@ import me.seoly.mytable.repository.StoreConfigRepository
 import me.seoly.mytable.repository.StoreOpeningRepository
 import me.seoly.mytable.repository.StoreRepository
 import me.seoly.utils.ModelMapper
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 
@@ -59,6 +60,15 @@ class StoreService(
 
         return entityList.map {
             modelMapper.map(it, StoreSerializer.Response.Default::class.java)
+        }
+    }
+
+    fun searchStore(name: String, pageable: Pageable): List<StoreSerializer.Response.WithOpened> {
+
+        return storeRepository.getAllByNameContains(name, pageable).map {
+            val ret = modelMapper.map(it, StoreSerializer.Response.WithOpened::class.java)
+            ret.isOpened = getStoreIsOpened(ret.id)
+            ret
         }
     }
 
