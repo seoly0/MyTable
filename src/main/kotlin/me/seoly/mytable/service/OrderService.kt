@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import me.seoly.mytable.core.model.entity.OrderEntity
 import me.seoly.mytable.core.model.type.OrderStateType
 import me.seoly.mytable.exception.EntityNotExistException
+import me.seoly.mytable.exception.StoreClosedException
 import me.seoly.mytable.serializer.OrderSerializer
 import me.seoly.mytable.repository.MenuRepository
 import me.seoly.mytable.repository.OptionItemRepository
@@ -21,12 +22,17 @@ class OrderService (
     private val itemRepository: OptionItemRepository,
     private val modelMapper: ModelMapper,
     private val objectMapper: ObjectMapper,
+    private val storeService: StoreService,
 ) {
 
     fun createCustomerOrder(
         customerId: Long,
         create: OrderSerializer.Request.Create,
     ): OrderSerializer.Response.WithDetails {
+
+        if (!storeService.getStoreIsOpened(create.storeId)) {
+            throw StoreClosedException()
+        }
 
         val objectMapper = ObjectMapper()
         val entity = OrderEntity(
