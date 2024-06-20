@@ -26,7 +26,7 @@ class MemberEntity(
 
     @Column
     @Enumerated(EnumType.STRING)
-    val memberType: MemberType,
+    val type: MemberType,
 
     ): BaseEntity() {
     @OneToOne(fetch = FetchType.EAGER)

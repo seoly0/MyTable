@@ -37,7 +37,7 @@ class StoreService(
         val newMember = MemberEntity(
             accountId = create.ownerId,
             storeId = newStore.id,
-            memberType = MemberType.OWNER,
+            type = MemberType.OWNER,
         )
         memberRepository.save(newMember)
 

@@ -17,7 +17,7 @@ class MemberService (
         val entity = MemberEntity(
             storeId = storeId,
             accountId = create.accountId,
-            memberType = create.memberType,
+            type = create.type,
         )
 
         memberRepository.save(entity)

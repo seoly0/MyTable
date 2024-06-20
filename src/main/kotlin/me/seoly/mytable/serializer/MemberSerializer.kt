@@ -8,11 +8,11 @@ class MemberSerializer {
 
         class Create {
             val accountId: Long = 0
-            lateinit var memberType: MemberType
+            lateinit var type: MemberType
         }
 
         class PatchMemberType {
-            lateinit var memberType: MemberType
+            lateinit var type: MemberType
         }
     }
 
@@ -21,7 +21,7 @@ class MemberSerializer {
         class Default: CommonSerializer.ResponseBase() {
             var storeId: Long = 0
             var accountId: Long = 0
-            lateinit var memberType: MemberType
+            lateinit var type: MemberType
         }
     }
 }
