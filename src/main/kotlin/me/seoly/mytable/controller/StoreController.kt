@@ -1,7 +1,6 @@
 package me.seoly.mytable.controller
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import me.seoly.mytable.serializer.CommonSerializer
 import me.seoly.mytable.serializer.StoreSerializer
 import me.seoly.mytable.service.StoreService
 import org.springdoc.core.annotations.ParameterObject

@@ -1,7 +1,6 @@
 package me.seoly.mytable.service
 
 import me.seoly.mytable.core.model.entity.MemberEntity
-import me.seoly.mytable.core.model.entity.StoreConfigEntity
 import me.seoly.mytable.core.model.entity.StoreEntity
 import me.seoly.mytable.core.model.entity.StoreOpeningEntity
 import me.seoly.mytable.core.model.type.MemberType
@@ -9,7 +8,6 @@ import me.seoly.mytable.exception.EntityNotExistException
 import me.seoly.mytable.exception.InvalidTimeException
 import me.seoly.mytable.serializer.StoreSerializer
 import me.seoly.mytable.repository.MemberRepository
-import me.seoly.mytable.repository.StoreConfigRepository
 import me.seoly.mytable.repository.StoreOpeningRepository
 import me.seoly.mytable.repository.StoreRepository
 import me.seoly.spring.utils.ModelMapper
@@ -20,19 +18,15 @@ import java.time.LocalDateTime
 @Service
 class StoreService(
     private val storeRepository: StoreRepository,
-    private val storeConfigRepository: StoreConfigRepository,
     private val storeOpeningRepository: StoreOpeningRepository,
     private val memberRepository: MemberRepository,
     private val modelMapper: ModelMapper,
-    ) {
+) {
 
     fun createStore(create: StoreSerializer.Request.Create): StoreSerializer.Response.Default {
 
         val newStore = modelMapper.map(create, StoreEntity::class.java)
         storeRepository.save(newStore)
-
-        val storeConfig = StoreConfigEntity(storeId = newStore.id)
-        storeConfigRepository.save(storeConfig)
 
         val newMember = MemberEntity(
             accountId = create.ownerId,
