@@ -11,7 +11,7 @@ import me.seoly.mytable.serializer.CategorySerializer
 import me.seoly.mytable.serializer.MenuSerializer
 import me.seoly.mytable.serializer.OptionSerializer
 import me.seoly.mytable.repository.*
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.springframework.stereotype.Service
 
 @Service

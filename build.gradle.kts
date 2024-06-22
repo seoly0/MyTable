@@ -44,7 +44,8 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
 
     implementation("me.seoly.spring:base:0.1.2")
-    implementation("me.seoly.utils:modelmapper:0.9")
+    implementation("me.seoly.spring:utils:0.1")
+    implementation("me.seoly.utils:common:0.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -10,7 +10,9 @@ import me.seoly.mytable.repository.MenuRepository
 import me.seoly.mytable.repository.OptionItemRepository
 import me.seoly.mytable.repository.OptionRepository
 import me.seoly.mytable.repository.OrderRepository
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
+import me.seoly.utils.common.ArrayUtils
+//import me.seoly
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -59,7 +61,7 @@ class OrderService (
 
         val menuIdList = simple.menuList.map { it.menuId }.distinct()
         val optionIdList = simple.menuList.map { it.optionList.map { o -> o.optionId } }.flatten().distinct()
-        val itemIdList = fullFlatten<Long>(simple.menuList.map { it.optionList.map { o -> o.itemList.map { i -> i.itemId } } }).distinct()
+        val itemIdList = ArrayUtils.fullFlatten<Long>(simple.menuList.map { it.optionList.map { o -> o.itemList.map { i -> i.itemId } } }).distinct()
 
         val menuEntityList = menuRepository.findAllByIdInAndStoreId(menuIdList, storeId)
         val optionEntityList = optionRepository.findAllByIdInAndStoreId(optionIdList, storeId)
@@ -157,22 +159,6 @@ class OrderService (
         return orderList.map {
             modelMapper.map(it, OrderSerializer.Response.Default::class.java)
         }
-    }
-
-    fun <T> fullFlatten(list: List<Any>): List<T> {
-        val result = mutableListOf<T>()
-
-        for (element in list) {
-            if (element is List<*>) {
-                @Suppress("UNCHECKED_CAST")
-                result.addAll(fullFlatten(element as List<Any>))
-            } else {
-                @Suppress("UNCHECKED_CAST")
-                result.add(element as T)
-            }
-        }
-
-        return result
     }
 
     @Transactional(readOnly = true)

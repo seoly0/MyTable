@@ -12,7 +12,7 @@ import me.seoly.mytable.repository.MemberRepository
 import me.seoly.mytable.repository.StoreConfigRepository
 import me.seoly.mytable.repository.StoreOpeningRepository
 import me.seoly.mytable.repository.StoreRepository
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

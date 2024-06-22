@@ -1,6 +1,6 @@
 package me.seoly.mytable.config
 
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.modelmapper.convention.MatchingStrategies
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

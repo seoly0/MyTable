@@ -3,7 +3,7 @@ package me.seoly.mytable.service
 import me.seoly.mytable.core.model.entity.MemberEntity
 import me.seoly.mytable.serializer.MemberSerializer
 import me.seoly.mytable.repository.MemberRepository
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.springframework.stereotype.Service
 
 @Service

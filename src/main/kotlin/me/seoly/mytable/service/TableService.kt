@@ -4,7 +4,7 @@ import me.seoly.mytable.core.model.entity.StoreTableEntity
 import me.seoly.mytable.exception.EntityNotExistException
 import me.seoly.mytable.serializer.TableSerializer
 import me.seoly.mytable.repository.StoreTableRepository
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.springframework.stereotype.Service
 
 @Service

@@ -9,7 +9,13 @@ sourceControl {
 }
 
 sourceControl {
-    gitRepository(URI("https://github.com/seoly0/ModelMapper.git")) {
-        producesModule("me.seoly.utils:modelmapper")
+    gitRepository(URI("https://github.com/seoly0/SpringUtils.git")) {
+        producesModule("me.seoly.spring:utils")
+    }
+}
+
+sourceControl {
+    gitRepository(URI("https://github.com/seoly0/JCommonUtils.git")) {
+        producesModule("me.seoly.utils:common")
     }
 }

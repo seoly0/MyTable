@@ -6,7 +6,7 @@ import me.seoly.mytable.exception.EntityDuplicatedException
 import me.seoly.mytable.exception.EntityNotExistException
 import me.seoly.mytable.serializer.AccountSerializer
 import me.seoly.mytable.repository.AccountRepository
-import me.seoly.utils.ModelMapper
+import me.seoly.spring.utils.ModelMapper
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
