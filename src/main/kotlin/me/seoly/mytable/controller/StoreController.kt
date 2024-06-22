@@ -50,10 +50,16 @@ class StoreController(
         TODO()
     }
 
-    @GetMapping("/store/{storeId}/isOpened")
-    fun getStoreIsOpened(
+    @GetMapping("/store/{storeId}/opened")
+    fun getStoreOpened(
         @PathVariable storeId: Long,
-    ) = storeService.getStoreIsOpened(storeId)
+    ) = storeService.getStoreOpened(storeId)
+
+    @PatchMapping("/store/{storeId}/opened")
+    fun patchStoreOpened(
+        @PathVariable storeId: Long,
+        @RequestBody patch: StoreSerializer.Request.PatchOpened,
+    ) = storeService.setStoreOpened(storeId, patch.opened)
 
 
     @PostMapping("/store/{storeId}/opening")

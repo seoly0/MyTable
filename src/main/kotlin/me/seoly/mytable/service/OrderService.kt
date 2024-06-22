@@ -30,7 +30,7 @@ class OrderService (
         create: OrderSerializer.Request.Create,
     ): OrderSerializer.Response.WithDetails {
 
-        if (!storeService.getStoreIsOpened(create.storeId)) {
+        if (!storeService.getStoreOpened(create.storeId)) {
             throw StoreClosedException()
         }
 

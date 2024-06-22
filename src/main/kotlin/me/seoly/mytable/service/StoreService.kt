@@ -63,12 +63,10 @@ class StoreService(
         }
     }
 
-    fun searchStore(name: String, pageable: Pageable): List<StoreSerializer.Response.WithOpened> {
+    fun searchStore(name: String, pageable: Pageable): List<StoreSerializer.Response.Default> {
 
         return storeRepository.getAllByNameContains(name, pageable).map {
-            val ret = modelMapper.map(it, StoreSerializer.Response.WithOpened::class.java)
-            ret.isOpened = getStoreIsOpened(ret.id)
-            ret
+            modelMapper.map(it, StoreSerializer.Response.Default::class.java)
         }
     }
 
@@ -91,7 +89,30 @@ class StoreService(
 
     }
 
-    fun getStoreIsOpened(storeId: Long): Boolean {
+    fun getStoreOpened(storeId: Long): Boolean {
+        val entity = storeRepository.findById(storeId)
+
+        if (entity.isEmpty) {
+            throw EntityNotExistException()
+        }
+
+        return entity.get().opened
+    }
+
+    fun setStoreOpened(storeId: Long, opened: Boolean) {
+        val optional = storeRepository.findById(storeId)
+
+        if (optional.isEmpty) {
+            throw EntityNotExistException()
+        }
+
+        val entity = optional.get()
+        entity.opened = opened
+
+        storeRepository.save(entity)
+    }
+
+    fun getStoreIsOpening(storeId: Long): Boolean {
         val now = LocalDateTime.now()
 
         val list = storeOpeningRepository.findAllByStoreId(storeId)

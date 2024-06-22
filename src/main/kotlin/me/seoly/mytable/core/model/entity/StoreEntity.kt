@@ -42,8 +42,8 @@ data class StoreEntity (
     @Column
     var rating: Int = 0
 
-//    @Column
-//    var policy: String = ""
+    @Column
+    var opened: Boolean = false
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false, insertable = false, updatable = false)

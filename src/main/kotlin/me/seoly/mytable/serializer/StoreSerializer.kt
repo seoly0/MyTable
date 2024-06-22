@@ -14,6 +14,10 @@ class StoreSerializer {
             val tel: String,
         )
 
+        class PatchOpened(
+            val opened: Boolean
+        )
+
         data class Opening(
             val dayOfWeek: DayOfWeek,
             @Schema(example = "11:00")
@@ -29,11 +33,12 @@ class StoreSerializer {
         open class Default: CommonSerializer.ResponseBase() {
             var name: String = ""
             var rating = 0
+            var opened = false
         }
 
-        class WithOpened: Default() {
-            var isOpened = false
-        }
+//        class WithOpened: Default() {
+//            var isOpened = false
+//        }
 
         class Opening {
             lateinit var dayOfWeek: DayOfWeek
