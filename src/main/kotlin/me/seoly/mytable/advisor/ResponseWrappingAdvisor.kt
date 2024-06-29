@@ -9,6 +9,7 @@ import org.springframework.http.server.ServerHttpRequest
 import org.springframework.http.server.ServerHttpResponse
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
+import org.springframework.web.util.ContentCachingRequestWrapper
 
 
 @RestControllerAdvice(basePackages = ["me.seoly.mytable.controller"])
@@ -54,7 +55,5 @@ class ResponseWrappingAdvisor(
 //                contents = body,
 //            )
 //        }
-
     }
-
 }

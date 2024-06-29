@@ -7,6 +7,7 @@ import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.*
 
+
 @Tag(name = "상점")
 @RequestMapping("/v1/user")
 @RestController
