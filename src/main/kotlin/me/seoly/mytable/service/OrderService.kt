@@ -26,7 +26,6 @@ class OrderService (
     private val objectMapper: ObjectMapper,
     private val storeService: StoreService,
 ) {
-
     fun createCustomerOrder(
         customerId: Long,
         create: OrderSerializer.Request.Create,
@@ -44,13 +43,13 @@ class OrderService (
             tableId = create.tableId,
             state = create.state,
             type = create.type,
-            numOfPeople = create.numOfPeople
+            numOfPeople = create.numOfPeople,
+            script = create.script,
         )
 
         val details = parseSimple(create.details, create.storeId)
         entity.totalPrice = details.totalPrice
         entity.details = objectMapper.writeValueAsString(details)
-
 
         orderRepository.save(entity)
 
@@ -114,6 +113,7 @@ class OrderService (
         ret.numOfPeople = entity.numOfPeople
         ret.totalPrice = entity.totalPrice
         ret.at = entity.at.toString()
+        ret.script = entity.script ?: ""
 
         if (details != null) {
             ret.details = details
@@ -180,5 +180,14 @@ class OrderService (
         orderRepository.save(entity)
 
         return createResponse(entity)
+    }
+
+    @Transactional(readOnly = true)
+    fun getPreviousOrderScripts(
+        storeId: Long,
+        customerId: Long,
+    ): List<String> {
+        val entityList = orderRepository.findScriptByStoreIdOrCustomerId(storeId, customerId)
+        return entityList.map { it.script }
     }
 }

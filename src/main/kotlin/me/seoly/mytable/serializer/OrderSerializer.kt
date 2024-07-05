@@ -16,6 +16,7 @@ class OrderSerializer {
             val type: OrderType,
             val state: OrderStateType,
             val details: OrderSimple,
+            val script: String,
         )
 
         data class OrderState (
@@ -33,6 +34,7 @@ class OrderSerializer {
             lateinit var type: OrderType
             lateinit var state: OrderStateType
             var totalPrice: Int = 0
+            lateinit var script: String
         }
 
         class WithDetails: Default() {

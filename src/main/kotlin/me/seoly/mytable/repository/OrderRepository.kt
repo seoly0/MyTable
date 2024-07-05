@@ -2,6 +2,7 @@ package me.seoly.mytable.repository
 
 import me.seoly.mytable.core.model.entity.OrderEntity
 import me.seoly.mytable.core.model.type.OrderStateType
+import me.seoly.mytable.repository.projection.OrderWithoutDetails
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface OrderRepository: JpaRepository<OrderEntity, Long> {
@@ -13,6 +14,7 @@ interface OrderRepository: JpaRepository<OrderEntity, Long> {
     fun findByCustomerIdAndState(customerId: Long, state: OrderStateType): OrderEntity
     fun findAllByCustomerId(customerId: Long): List<OrderEntity>
     fun findAllByCustomerIdAndState(customerId: Long, state: OrderStateType): List<OrderEntity>
-
     fun findByIdAndStoreId(id: Long, storeId: Long): OrderEntity?
+    fun findScriptByStoreIdOrCustomerId(storeId: Long, customerId: Long): List<OrderWithoutDetails>
+
 }

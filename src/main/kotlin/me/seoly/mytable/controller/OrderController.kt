@@ -112,4 +112,10 @@ class OrderController (
         @PathVariable orderId: Long,
         @RequestBody body: OrderSerializer.Request.OrderState,
     ) = orderService.patchState(orderId, null, customerId, body)
+
+    @GetMapping("/customer/{customerId}/store/{storeId}/order/script")
+    fun getCustomerOrderScriptList(
+        @PathVariable customerId: Long,
+        @PathVariable storeId: Long,
+    ) = orderService.getPreviousOrderScripts(storeId, customerId)
 }

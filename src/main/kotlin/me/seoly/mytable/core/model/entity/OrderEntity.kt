@@ -42,13 +42,13 @@ data class OrderEntity (
     @Column
     @Enumerated(EnumType.STRING)
     var state: OrderStateType,
+
+    @Column(length = 50)
+    var script: String,
 ): BaseEntity()  {
 
     @Lob
     lateinit var details: String
-
-    @Column(length = 50)
-    lateinit var script: String
 
     @Column
     var totalPrice: Int = 0
