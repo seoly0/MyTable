@@ -47,6 +47,9 @@ data class OrderEntity (
     @Lob
     lateinit var details: String
 
+    @Column(length = 50)
+    lateinit var script: String
+
     @Column
     var totalPrice: Int = 0
 
