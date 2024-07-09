@@ -12,9 +12,9 @@ import me.seoly.mytable.repository.OptionRepository
 import me.seoly.mytable.repository.OrderRepository
 import me.seoly.spring.utils.ModelMapper
 import me.seoly.utils.common.ArrayUtils
-//import me.seoly
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class OrderService (
@@ -182,12 +182,22 @@ class OrderService (
         return createResponse(entity)
     }
 
-    @Transactional(readOnly = true)
     fun getPreviousOrderScripts(
         storeId: Long,
         customerId: Long,
     ): List<String> {
-        val entityList = orderRepository.findScriptByStoreIdOrCustomerId(storeId, customerId)
+        val entityList = orderRepository.findTop5ByStoreIdOrCustomerIdOrderByCreatedAtDesc(storeId, customerId)
         return entityList.map { it.script }
+    }
+
+    fun getPreviousOrderCount(
+        storeId: Long,
+        customerId: Long,
+    ): Int {
+
+        val sixMonthBefore = LocalDateTime.now().minusMonths(6)
+        val orderList = orderRepository.findAllByStoreIdAndCustomerIdAndAtAfter(storeId, customerId, sixMonthBefore)
+
+        return orderList.size
     }
 }

@@ -100,6 +100,12 @@ class OrderController (
         @RequestBody body: OrderSerializer.Request.OrderState,
     ) = orderService.patchState(orderId, storeId, null, body)
 
+    @GetMapping("/store/{storeId}/order/customer/{customerId}/cnt")
+    fun getStoreOrderCountByCustomer(
+        @PathVariable storeId: Long,
+        @PathVariable customerId: Long,
+    )= orderService.getPreviousOrderCount(storeId, customerId)
+
     @GetMapping("/customer/{customerId}/order/{orderId}")
     fun getCustomerOrder(
         @PathVariable customerId: Long,

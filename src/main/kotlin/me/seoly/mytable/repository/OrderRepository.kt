@@ -3,7 +3,11 @@ package me.seoly.mytable.repository
 import me.seoly.mytable.core.model.entity.OrderEntity
 import me.seoly.mytable.core.model.type.OrderStateType
 import me.seoly.mytable.repository.projection.OrderWithoutDetails
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.web.PageableDefault
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface OrderRepository: JpaRepository<OrderEntity, Long> {
 
@@ -15,6 +19,7 @@ interface OrderRepository: JpaRepository<OrderEntity, Long> {
     fun findAllByCustomerId(customerId: Long): List<OrderEntity>
     fun findAllByCustomerIdAndState(customerId: Long, state: OrderStateType): List<OrderEntity>
     fun findByIdAndStoreId(id: Long, storeId: Long): OrderEntity?
-    fun findScriptByStoreIdOrCustomerId(storeId: Long, customerId: Long): List<OrderWithoutDetails>
-
+    fun findTop5ByStoreIdOrCustomerIdOrderByCreatedAtDesc(storeId: Long, customerId: Long): List<OrderWithoutDetails>
+    fun findAllByStoreIdAndCustomerId(storeId: Long, customerId: Long): List<OrderWithoutDetails>
+    fun findAllByStoreIdAndCustomerIdAndAtAfter(storeId: Long, customerId: Long, at: LocalDateTime?): List<OrderWithoutDetails>
 }
